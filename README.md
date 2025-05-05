@@ -1,2 +1,2 @@
 # nahc-parking-backend
-nahc-parking-backend repository
+nahc-parking-backend
