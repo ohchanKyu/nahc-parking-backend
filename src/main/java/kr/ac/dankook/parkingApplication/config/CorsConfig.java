@@ -12,7 +12,7 @@ import java.util.List;
 public class CorsConfig {
 
     private static final String DEVELOP_FRONT_ADDRESS = "http://localhost:5173";
-    private static final String PROD_FRONT_ADDRESS = "https://www.nahc-parking.o-r.kr/";
+    private static final String PROD_FRONT_ADDRESS = "https://www.nahc-parking.o-r.kr";
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
