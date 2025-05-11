@@ -27,7 +27,7 @@ public class ChatRoomEntityConverter {
     }
 
     @Transactional(readOnly = true)
-    public ChatRoom getChatRoomByMemberId(Long roomId){
+    public ChatRoom getChatRoomByRoomId(Long roomId){
         return getChatRoomFromRepository(roomId);
     }
 

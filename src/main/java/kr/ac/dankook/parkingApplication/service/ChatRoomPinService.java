@@ -24,7 +24,7 @@ public class ChatRoomPinService {
     public String isPinProcess(Long roomId,Long memberId){
 
         Member member = memberEntityConverter.getMemberByMemberId(memberId);
-        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByMemberId(roomId);
+        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByRoomId(roomId);
 
         Optional<ChatRoomPin> targetPin = chatRoomPinRepository
                 .findByChatRoomAndMember(chatRoom,member);
@@ -35,7 +35,7 @@ public class ChatRoomPinService {
     public String savePinProcess(Long roomId,Long memberId){
 
         Member member = memberEntityConverter.getMemberByMemberId(memberId);
-        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByMemberId(roomId);
+        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByRoomId(roomId);
 
         ChatRoomPin newPin = ChatRoomPin.builder()
                 .chatRoom(chatRoom).member(member).build();

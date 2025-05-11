@@ -64,9 +64,7 @@ public class ChatController {
         CompletableFuture.runAsync(() -> {
             try {
                 Long roomId = EncryptionUtil.decrypt(chatMessageRequest.getRoomId());
-                Long memberId = EncryptionUtil.decrypt(chatMessageRequest.getMemberId());
-
-                chatRedisService.updateAllUnreadCount(roomId, memberId);
+                chatRedisService.updateAllUnreadCount(roomId);
                 chatRoomService.saveLastMessageProcess(
                         EncryptionUtil.decrypt(chatMessageRequest.getRoomId()),
                         chatMessageRequest.getContent());

@@ -39,10 +39,10 @@ public class ChatRoomService {
     @Transactional(readOnly = true)
     public boolean isParticipateChatRoomProcess(Long roomId,Long memberId){
 
-        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByMemberId(roomId);
+        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByRoomId(roomId);
         Member member = memberEntityConverter.getMemberByMemberId(memberId);
-        Optional<ChatRoomMember> targetChatRoomMember = chatRoomMemberRepository.
-                findByChatRoomAndMember(chatRoom, member);
+        Optional<ChatRoomMember> targetChatRoomMember = chatRoomMemberRepository
+                .findByChatRoomAndMember(chatRoom, member);
         return targetChatRoomMember.isPresent();
     }
 
@@ -57,7 +57,7 @@ public class ChatRoomService {
     @Transactional
     public void saveLastMessageProcess(Long roomId, String content){
 
-        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByMemberId(roomId);
+        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByRoomId(roomId);
         chatRoom.setLastMessage(content);
         chatRoom.setLastMessageTime(LocalDateTime.now());
         chatRoomRepository.save(chatRoom);
@@ -103,7 +103,7 @@ public class ChatRoomService {
     @Transactional
     public ChatRoomResponse registerNewMemberToChatRoomProcess(Long roomId, Long memberId){
 
-        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByMemberId(roomId);
+        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByRoomId(roomId);
         Member member = memberEntityConverter.getMemberByMemberId(memberId);
         ChatRoomMember newMember = ChatRoomMember.builder()
                 .chatRoom(chatRoom)
@@ -116,7 +116,7 @@ public class ChatRoomService {
     @Transactional
     public void unregisterMemberToChatRoomProcess(Long roomId,Long memberId){
 
-        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByMemberId(roomId);
+        ChatRoom chatRoom = chatRoomEntityConverter.getChatRoomByRoomId(roomId);
         Member member = memberEntityConverter.getMemberByMemberId(memberId);
         Optional<ChatRoomMember> targetChatRoomMember = chatRoomMemberRepository.
                 findByChatRoomAndMember(chatRoom, member);

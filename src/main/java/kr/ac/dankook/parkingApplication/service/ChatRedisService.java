@@ -42,11 +42,11 @@ public class ChatRedisService {
         delete(key);
     }
 
-    public void updateAllUnreadCount(Long roomId,Long memberId){
+    public void updateAllUnreadCount(Long roomId){
 
         ValueOperations<String, Integer> operations = integerRedisTemplate.opsForValue();
         ChatRoom chatRoom = chatRoomEntityConverter
-                .getChatRoomByMemberId(roomId);
+                .getChatRoomByRoomId(roomId);
         List<ChatRoomMember> allMembers = chatRoomMemberRepository.findByChatRoom(chatRoom);
 
         for(ChatRoomMember chatRoomMember : allMembers){
