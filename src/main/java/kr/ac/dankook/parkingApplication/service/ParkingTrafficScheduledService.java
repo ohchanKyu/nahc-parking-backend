@@ -48,7 +48,10 @@ public class ParkingTrafficScheduledService {
     public void updateCurrentInfoScheduler() {
         log.info("Update Current Traffic Information");
 
-        for (int i = 1; i <= 116; i++) {
+        for (int i = 1; i <= 128; i++) {
+
+            if (i == 22 || i == 28 || i == 57 || i == 62 || i ==65 ||
+                i == 69 || i == 75 || i == 97) continue;
 
             String poiCode = String.format("POI%03d", i);
             webClient.get()
@@ -56,11 +59,11 @@ public class ParkingTrafficScheduledService {
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
                     .bodyToMono(String.class)
-                    .subscribe(this::parsingDataAndSave);
+                    .subscribe(body -> parsingDataAndSave(body, poiCode));
         }
     }
 
-    private void parsingDataAndSave(String body){
+    private void parsingDataAndSave(String body,String targetCode){
         try{
             JSONObject json = new JSONObject(body);
             JSONObject cityDataObject = json.getJSONObject("CITYDATA");
@@ -89,7 +92,7 @@ public class ParkingTrafficScheduledService {
                 trafficMessageRepository.save(message);
             }
         }catch(JSONException e) {
-            log.error("Fetch error during update traffic information - {}",e.getMessage());
+            log.error("Fetch error during update traffic information - {} - {}",e.getMessage(),targetCode);
         }
     }
 
